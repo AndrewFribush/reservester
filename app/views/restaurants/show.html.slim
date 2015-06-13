@@ -1,0 +1,81 @@
+h1 View Restaurant
+
+p
+  label style="font-weight: bold"
+    | Owner:
+  span
+    =< @restaurant.owner.email
+
+p
+  label style="font-weight: bold"
+    | Name:
+  span
+    =< @restaurant.name
+
+p
+  label style="font-weight: bold"
+    | Description:
+  span
+    =< @restaurant.description
+
+p
+  label style="font-weight: bold"
+    | Address:
+  span
+    =< @restaurant.address
+
+p
+  label style="font-weight: bold"
+    | Phone Number:
+  span
+    =< @restaurant.phone_number
+
+- if current_owner_owns_restaurant(@restaurant)
+  span
+    => link_to 'Edit', edit_restaurant_path
+  | |
+  span
+    =< link_to 'Delete', restaurant_path(@restaurant), method: :delete, confirm: "Are you sure?"
+
+- if current_owner_owns_restaurant(@restaurant)
+  hr
+  h3 Reservations
+  - @restaurant.reservations.each do |reservation|
+    div
+      label
+        | email:
+      span
+        =< reservation.email
+    div
+      label
+        | Reservation time:
+      span
+        =< reservation.requested_at
+    - if reservation.message
+      div
+        label
+          | message:
+        span
+          =< reservation.message
+    div
+      = link_to 'Mark as confirmed', "/restaurants/#{@restaurant.id}/reservation/#{reservation.id}", method: :delete, confirm: "Are you sure?"
+    p
+- else
+  hr
+  h3 Make Reservation
+
+  = form_for :reservation, url: "/restaurants/#{@restaurant.id}/reservation" do |f|
+    p
+      = f.label :email
+      = f.text_field :email
+    p
+      = f.label :requested_at
+      = f.text_field :requested_at
+    p
+      = f.label :message
+      = f.text_field :message
+    p
+      = f.submit
+
+hr
+= render partial: 'shared/view_restaurants_link'

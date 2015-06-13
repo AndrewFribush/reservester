@@ -1,0 +1,23 @@
+h1 Create a new Restaurant
+
+= form_for :restaurant, url: restaurants_path do |f|
+  = render partial: 'errors'
+
+  p
+    = f.label :name
+    = f.text_field :name
+
+  p
+    = f.label :description
+    = f.text_field :description
+
+  p
+    = f.label :address
+    = f.text_field :address
+
+  p
+    = f.label :phone_number
+    = f.text_field :phone_number
+
+  p
+    = f.submit

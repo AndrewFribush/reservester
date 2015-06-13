@@ -1,0 +1,16 @@
+- if @restaurants && @restaurants.any?
+  - @restaurants.each do |restaurant|
+    h3
+      = restaurant.name
+      | :
+      =< restaurant.description
+      div
+        => restaurant.address
+        = restaurant.phone_number
+    span
+      => link_to 'Show', restaurant_path(restaurant)
+    - if current_owner_owns_restaurant(restaurant)
+      | |
+      span
+        =< link_to 'Edit', edit_restaurant_path(restaurant)
+    hr

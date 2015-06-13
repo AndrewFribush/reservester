@@ -1,0 +1,6 @@
+h1 Restaurant List
+
+= render partial: "shared/restaurants"
+
+- if current_owner
+  = link_to 'Create a new restaurant', new_restaurant_path

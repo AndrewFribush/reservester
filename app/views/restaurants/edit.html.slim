@@ -1,0 +1,25 @@
+h1
+  | Editing restaurant
+  =< @restaurant.name
+
+= form_for :restaurant, url: restaurant_path, method: 'patch' do |f|
+  = render partial: 'errors'
+
+  p
+    = f.label :name
+    = f.text_field :name
+
+  p
+    = f.label :description
+    = f.text_field :description
+
+  p
+    = f.label :address
+    = f.text_field :address
+
+  p
+    = f.label :phone_number
+    = f.text_field :phone_number
+
+  p
+    = f.submit
